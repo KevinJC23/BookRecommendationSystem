@@ -94,6 +94,21 @@ Create a variable named `cf_books_sort` to store the dataset sorted alphabetical
 ## Modeling
 
 ## Evaluation
+### Content Based Filtering
+To evaluate the performance of the collaborative filtering recommendation system, we used the book "Buddha Mom: The Journey Through Mindful Mothering" as the query item. The system was expected to retrieve relevant items such as:
+- My Mom Is a Dragon
+- The Buddha in the Robot
+- The Buddha of Suburbia
+
+These results suggest that the recommendation system is highly effective, particularly in retrieving all relevant items within the top 5 results (Recall@5 = 1.0) and ranking at least one relevant item at the very top (MRR = 1.0). Although Precision@5 is slightly below perfect, indicating that 2 out of the 5 recommended items were not relevant, the system still demonstrates strong overall performance by balancing both accuracy and ranking quality.
+
+### Collaborative Filtering
+#### RMSE (Root Mean Square Error)
+Root Mean Squared Error (RMSE) is an evaluation metric used to measure the difference between the predicted values of a model and the actual values. RMSE is calculated as the square root of the average of the squared prediction errors. A lower RMSE value indicates better predictive performance of the model.
+
+![download](https://github.com/user-attachments/assets/00de995d-f3e7-4e52-8ab2-af5eb76014c9)
+
+This graph indicates that the model performs increasingly well on the training data, while its performance on the validation data remains relatively constant. This suggests a risk of overfitting, as the model fails to generalize to unseen data. This observation is supported by the final training and validation metrics, where the model achieved a loss of 0.2074 and root mean squared error (RMSE) of 0.0243 on the training set, but a significantly higher validation loss of 0.6547 and validation RMSE of 0.3840.
 
 ## Conclusion
 
