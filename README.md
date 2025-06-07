@@ -13,6 +13,20 @@ One viable solution to address this issue is the development of a book recommend
 ### Solution Statements
 
 ## Data Understanding
+### Source
+The dataset used in this project was obtained from [Kaggle](https://www.kaggle.com/datasets/mohamedbakhet/amazon-books-reviews) with the name "Diabetes Prediction Dataset". It can be downloaded using kagglehub library with the following code:
+```
+import kagglehub
+
+path = kagglehub.dataset_download("mohamedbakhet/amazon-books-reviews")
+```
+### Data Distribution Visualization
+This part presenting visualization of the feature.
+
+- #### Boxplot for review/score Distribution
+![review/score](https://github.com/user-attachments/assets/bd77b2e3-183a-4836-9b6b-c6bfa5c47ac8)
+
+Based on the boxplot, distribution of review/score is positively skewed (right-skewed). However, since the data will be used to generate recommendations that prioritize higher ratings, removing outlier may not be necessary.
 
 ## Data Preparation
 
