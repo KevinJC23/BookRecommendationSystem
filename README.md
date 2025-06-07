@@ -9,19 +9,75 @@ One viable solution to address this issue is the development of a book recommend
 
 ## Business Understanding
 ### Problem Statements
+- How can we generate personalized book recommendations based on individual user preferences?
+- How can recommendation system algorithms be effectively applied to improve user satisfaction and engagement?
+- Which recommendation system algorithm provides the most accurate and relevant results for book suggestions?
+
 ### Goals
+- To develop a recommender system that leverages user review scores to suggest books aligned with user preferences.
+- To enhance user satisfaction by delivering relevant and personalized book recommendations.
+- To evaluate and identify the most effective recommendation algorithm for this dataset using performance metrics such as precision, recall, or RMSE.
+
 ### Solution Statements
+- Use collaborative filtering techniques (e.g., user-based or item-based) to build a recommendation engine based on historical review scores.
+- Train and evaluate multiple recommendation algorithms to determine the most effective model for delivering accurate recommendations.
+- Visualize and interpret the system’s performance to inform further improvements and real-world applicability.
 
 ## Data Understanding
 ### Source
-The dataset used in this project was obtained from [Kaggle](https://www.kaggle.com/datasets/mohamedbakhet/amazon-books-reviews) with the name "Diabetes Prediction Dataset". It can be downloaded using kagglehub library with the following code:
+The dataset used in this project was obtained from [Kaggle](https://www.kaggle.com/datasets/mohamedbakhet/amazon-books-reviews) with the name "Amazon Books Reviews". It can be downloaded using kagglehub library with the following code:
 ```
 import kagglehub
 
 path = kagglehub.dataset_download("mohamedbakhet/amazon-books-reviews")
 ```
+
+### Dataset Information
+This dataset originally contains ten columns and consists of 3,000,000 entries before data cleaning. Due to resource limitations, it was reduced into 25,000. 
+
+### Data Condition
+- There are no missing values.
+- Contains 4 duplicate entries.
+- Title column consist of 12,551 unique book titles.
+
+The dataset consists of ten columns, which are as follows:
+- Id: Unique identifier for book.
+- Title: Title of the book.
+- Price: Price of the book.
+- User_id: Unique identifier for user who rate the book.
+- profileName: Name of user who rate the book.
+- review/helpfulness: Helpfulness score of the review.
+- review/score: The rating given to the book from 0 to 5.
+- review/time: Time when the user submitted a book review.
+- review/summary: Brief summary of text review.
+- review/text: Full written content of the review.
+
+In this project, we use only four columns such as Id, Title, User_id, review/score which are related to the goal of building recommender system.
+
+### Datatypes Overview
+This part explained datatypes from each column on dataset. Datatype shows how data stored and processed, example is the data in number (integer, float), text (object), or categorical and also this is become basic foundation to create a better recommendation system. 
+| Column        | Non-Null Count | Dtype   |
+|---------------|----------------|---------|
+| Id            | 20,385         | object  |
+| Title         | 20,385         | object  |
+| User_id       | 20,385         | object  |
+| review/score  | 20,385         | float64 |
+
+### Datasets Descriptive Statistic
+This part displays the statistical summary of column on the dataset's numeric features.
+| Statistic      | review/score |
+|----------------|--------------|
+| count          | 20,385       |
+| mean           | 4.234        |
+| std            | 1.176        |
+| min            | 1.000        |
+| 25%            | 4.000        |
+| 50%            | 5.000        |
+| 75%            | 5.000        |
+| Max            | 5.000        |
+
 ### Data Distribution Visualization
-This part presenting visualization of the feature.
+This part presenting visualization of numeric feature.
 
 - #### Boxplot for review/score Distribution
 ![review/score](https://github.com/user-attachments/assets/bd77b2e3-183a-4836-9b6b-c6bfa5c47ac8)
@@ -29,6 +85,11 @@ This part presenting visualization of the feature.
 Based on the boxplot, distribution of review/score is positively skewed (right-skewed). However, since the data will be used to generate recommendations that prioritize higher ratings, removing outlier may not be necessary.
 
 ## Data Preparation
+### Dropping Duplicate Records
+Entries containing duplicate values—identified during the initial data inspection—were eliminated to ensure data integrity and prevent redundancy. Although only four duplicate records were found, their removal contributes to maintaining a clean and unbiased dataset.
+
+### Sorting Title Column
+Create a variable named `cf_books_sort` to store the dataset sorted alphabetically by the Title column.
 
 ## Modeling
 
