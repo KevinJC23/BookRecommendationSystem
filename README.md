@@ -9,19 +9,16 @@ One viable solution to address this issue is book recommendation system developm
 
 ## Business Understanding
 ### Problem Statements
-- How can we generate personalized book recommendations based on individual user preferences?
-- How can recommendation system algorithms be effectively applied to improve user satisfaction and engagement?
-- Which recommendation system algorithm provides the most accurate and relevant results for book suggestions?
+- How to produce book recommendations that can be personalized based on each user's preferences?
+- How can recommendation system algorithm be effectively implemented to increase user satisfaction and engagement?
+- What recommendation system algorithm can give accurate and relevant results for book suggestions?
 
 ### Goals
-- To develop a recommender system that leverages user review scores to suggest books aligned with user preferences.
-- To enhance user satisfaction by delivering relevant and personalized book recommendations.
-- To evaluate and identify the most effective recommendation algorithm for this dataset using performance metrics such as precision, recall, or RMSE.
+- Develop a recommendation system that leverage user review scores to suggest books aligned with user's preferences.
+- Increase user satisfaction by delivering relevant and personalized book recommendations.
 
 ### Solution Statements
-- Use collaborative filtering techniques (e.g., user-based or item-based) to build a recommendation engine based on historical review scores.
-- Train and evaluate multiple recommendation algorithms to determine the most effective model for delivering accurate recommendations.
-- Visualize and interpret the system’s performance to inform further improvements and real-world applicability.
+- Compare two recommendation algorithms to decide which model is the most effective in giving accurate recommendations by comparing Content-Based Filtering—precision, recall, F1, MMR (Mean Reciprocal Rank)— and Collaborative Filtering—RMSE (Root Mean Square Error)— metrics.
 
 ## Data Understanding
 ### Source
