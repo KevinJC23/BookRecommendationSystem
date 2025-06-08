@@ -88,8 +88,8 @@ Entries containing duplicate values—identified during the initial data inspect
 ### Sorting Title Column
 Create a variable named `cf_books_sort` to store the dataset sorted alphabetically by the Title column.
 
-### Additional Preparation For Collaborative Filtering
-To prepare the dataset for collaborative filtering, user and item identifiers were encoded into numeric values using mapping dictionaries. This encoding allows the data to be used effectively within embedding layers in the model architecture, which learn latent representations of users and items. Review scores were normalized to a 0–1 scale to match the expected output range of the sigmoid activation function used during model training. Finally, the dataset was randomly shuffled and split into training (80%) and validation (20%) sets, ensuring a balanced and unbiased evaluation of the model’s performance while reducing the risk of overfitting.
+### Encoding And Normalizing Data For Collaborative Filtering
+To prepare the dataset for collaborative filtering, UserID and Title were encoded into numeric values using a mapping dictionary. This encoding process allows the data to used effectively in an embedding layer in model architecture, that will learn latent representation of UserID and title. Review scores were normalized to a 0-1 scale to match the expected output range of sigmoid function that is used during model training. Finally, dataset was randomly shuffled and divided into training set (80%) and validation set (20%), to ensure a balance and unbiased model evaluation and to reduce overfitting risks.
 
 ## Modeling
 ### Content Based Filtering
@@ -104,16 +104,11 @@ To enhance generalization and prevent overfitting, early stopping is employed ba
 
 ## Evaluation
 ### Content Based Filtering
-To evaluate the performance of the collaborative filtering recommendation system, we used the book "Buddha Mom: The Journey Through Mindful Mothering" as the query item. The system was expected to retrieve relevant items such as:
-- My Mom Is a Dragon
-- The Buddha in the Robot
-- The Buddha of Suburbia
-
-These results suggest that the recommendation system is highly effective, particularly in retrieving all relevant items within the top 5 results (Recall@5 = 1.0) and ranking at least one relevant item at the very top (MRR = 1.0). Although Precision@5 is slightly below perfect, indicating that 2 out of the 5 recommended items were not relevant, the system still demonstrates strong overall performance by balancing both accuracy and ranking quality.
+To evaluate performance of the collaborative filtering recommendation system performance, we tried to use "Buddha Mom: The Journey Through Mindful Mothering" book as the query item. this system was expected to retrieve the relevant items such as ```My Mom Is a Dragon```, ```The Buddha in the Robot```, and ```The Buddha of Suburbia```. This result shows recommendation system works effectively, especially because successfully took all relevant items in top 5 recommendations with ```Recall@5 = 1.0``` and rank at least one relevant item in the top position with ```Mean Reciprocal Rank (MRR) = 1.0```. Although ```Precision@5 = 0.6``` is slightly below perfect —indicating that 3 out of 5 recommended items were not relevant— system still shows good performance overall by balancing accuracy and ranking quality, as also reflected in ```F1@5: 0.7499999999999999```.
 
 ### Collaborative Filtering
 #### RMSE (Root Mean Square Error)
-Root Mean Squared Error (RMSE) is an evaluation metric used to measure the difference between the predicted values of a model and the actual values. RMSE is calculated as the square root of the average of the squared prediction errors. A lower RMSE value indicates better predictive performance of the model.
+Root Mean Squared Error (RMSE) is an evaluation metric that is used to measure difference between model prediction and actual values. RMSE calculated  as the square root of the average of the squared prediction errors. A lower RSME value shows better predictive model performance.
 
 ![download](https://github.com/user-attachments/assets/00de995d-f3e7-4e52-8ab2-af5eb76014c9)
 
