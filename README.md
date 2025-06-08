@@ -102,9 +102,50 @@ The core of the model computes the dot product between the user and item embeddi
 
 To enhance generalization and prevent overfitting, early stopping is employed based on the validation RMSE, halting training once performance ceases to improve over a set number of epochs. This embedding-based collaborative filtering approach effectively models personalized recommendations without requiring any content-based features, making it particularly well-suited for large-scale systems where explicit metadata may be sparse or unavailable.
 
+## Result
+### Content Based Filtering
+```
+books_recommendations('Buddha Mom: The Journey Through Mindful Mothering')
+```
+
+| Title                                                | Id          |
+|------------------------------------------------------|-------------|
+| My Mom Is a Dragon                                   | 0971594058  |
+| The Buddha in the Robot                              | B0006EAV8Q  |
+| The Buddha of Suburbia                               | 014013168X  |
+| In the Buddha's Words: An Anthology of Discourses    | 0861714911  |
+| Such a Long Journey                                  | 0864922191  |
+
+### Collaborative Filtering
+User A1ICSOSXOBZENW Has Rated the Following Books:
+| Title             | Review/Score |
+|-------------------|--------------|
+| Spirit of Family  | 5.0          |
+
+Result:
+| Title                                                                 | Review/Score |
+|-----------------------------------------------------------------------|--------------|
+| A CHRISTMAS CAROL, BEING A GHOST STORY OF CHRISTMAS                   | 5.0          |
+| The richest man in Babylon                                            | 5.0          |
+| Taking Charge of Your Fertility: The Definitive Guide...              | 5.0          |
+| Seabiscuit: An American Legend (Trade Edition)                        | 5.0          |
+| Redeeming Love                                                        | 5.0          |
+| THE BOOK OF MORMON: Another Testament of Jesus Christ                 | 5.0          |
+| The China Study: The Most Comprehensive Study...                      | 5.0          |
+| The Count Of Monte Cristo, Abridged                                   | 5.0          |
+| With the Old Breed: At Peleliu and Okinawa                            | 5.0          |
+| Wizard's First Rule (Sword of Truth, Book 1)                          | 5.0          |
+| Seabiscuit: An American Legend (Trade Edition)                        | 2.0          |
+| Wizard's First Rule (Sword of Truth, Book 1)                          | 4.0          |
+| With the Old Breed: At Peleliu and Okinawa                            | 3.0          |
+| Taking Charge of Your Fertility: The Definitive Guide...              | 2.0          |
+| The richest man in Babylon                                            | 4.0          |
+| Redeeming Love                                                        | 2.0          |
+| Wizard's First Rule (Sword of Truth, Book 1)                          | 1.0          |
+
 ## Evaluation
 ### Content Based Filtering
-To evaluate performance of the Content Based Filtering recommendation system performance, we tried to use "Buddha Mom: The Journey Through Mindful Mothering" book as the query item. this system was expected to retrieve the relevant items such as ```My Mom Is a Dragon```, ```The Buddha in the Robot```, and ```The Buddha of Suburbia```. This result shows recommendation system works effectively, especially because successfully took all relevant items in top 5 recommendations with ```Recall@5 = 1.0``` and rank at least one relevant item in the top position with ```Mean Reciprocal Rank (MRR) = 1.0```. Although ```Precision@5 = 0.6``` is slightly below perfect —indicating that 3 out of 5 recommended items were not relevant— system still shows good performance overall by balancing accuracy and ranking quality, as also reflected in ```F1@5: 0.7499999999999999```.
+To evaluate performance of the Content Based Filtering recommendation system performance, we tried to use ```Buddha Mom: The Journey Through Mindful Mothering``` book as the query item. this system was expected to retrieve the relevant items such as ```My Mom Is a Dragon```, ```The Buddha in the Robot```, and ```The Buddha of Suburbia```. This result shows recommendation system works effectively, especially because successfully took all relevant items in top 5 recommendations with ```Recall@5 = 1.0``` and rank at least one relevant item in the top position with ```Mean Reciprocal Rank (MRR) = 1.0```. Although ```Precision@5 = 0.6``` is slightly below perfect —indicating that 3 out of 5 recommended items were not relevant— system still shows good performance overall by balancing accuracy and ranking quality, as also reflected in ```F1@5: 0.7499999999999999```.
 
 ### Collaborative Filtering
 #### RMSE (Root Mean Square Error)
