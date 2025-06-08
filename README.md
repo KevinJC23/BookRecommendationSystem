@@ -104,10 +104,9 @@ To enhance generalization and prevent overfitting, early stopping is employed ba
 
 ## Result
 ### Content Based Filtering
-```
-books_recommendations('Buddha Mom: The Journey Through Mindful Mothering')
-```
+Books title: Buddha Mom: The Journey Through Mindful Mothering
 
+Most similar book:
 | Title                                                | Id          |
 |------------------------------------------------------|-------------|
 | My Mom Is a Dragon                                   | 0971594058  |
@@ -115,6 +114,8 @@ books_recommendations('Buddha Mom: The Journey Through Mindful Mothering')
 | The Buddha of Suburbia                               | 014013168X  |
 | In the Buddha's Words: An Anthology of Discourses    | 0861714911  |
 | Such a Long Journey                                  | 0864922191  |
+
+This result returns the top 5 books that are most similar to "Buddha Mom: The Journey Through Mindful Mothering" in terms of their TF-IDF feature representation using Cosine Similarity.
 
 ### Collaborative Filtering
 User A1ICSOSXOBZENW Has Rated the Following Books:
@@ -142,6 +143,8 @@ Top Book Recommendation For A1ICSOSXOBZENW:
 | The richest man in Babylon                                            | 4.0          |
 | Redeeming Love                                                        | 2.0          |
 | Wizard's First Rule (Sword of Truth, Book 1)                          | 1.0          |
+
+Based on the result, the system recommend user's by book title such as "A Christmas Carol" and "The Richest Man in Babylon", each with high predicted interest. Despite variations in actual dataset ratings, these books were ranked highly by model due to their relevance to user's profile and reading history.
 
 ## Evaluation
 ### Content Based Filtering
