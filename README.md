@@ -122,7 +122,7 @@ User A1ICSOSXOBZENW Has Rated the Following Books:
 |-------------------|--------------|
 | Spirit of Family  | 5.0          |
 
-Result:
+Top Book Recommendation For A1ICSOSXOBZENW:
 | Title                                                                 | Review/Score |
 |-----------------------------------------------------------------------|--------------|
 | A CHRISTMAS CAROL, BEING A GHOST STORY OF CHRISTMAS                   | 5.0          |
