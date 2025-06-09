@@ -16,6 +16,7 @@ One viable solution to address this issue is book recommendation system developm
 ### Goals
 - Develop a recommendation system that leverage user review scores to suggest books aligned with user's preferences.
 - Increase user satisfaction by delivering relevant and personalized book recommendations.
+- Evaluating and choosing a recommendation system algorithm that provides accurace and highly relevant book suggestions.
 
 ### Solution Statements
 - Compare two recommendation algorithms to decide which model is the most effective in giving accurate recommendations by comparing Content-Based Filtering—precision, recall, F1, MMR (Mean Reciprocal Rank)— and Collaborative Filtering—RMSE (Root Mean Square Error)— metrics.
@@ -82,28 +83,30 @@ This part presenting visualization of numeric feature.
 Based on the boxplot, distribution of review/score is positively skewed (right-skewed). However, since the data will be used to generate recommendations that prioritize higher ratings, removing outlier may not be necessary.
 
 ## Data Preparation
+### Sampling to Reduce Dataset Size
+Due to an overwhelming amount of rows —approximately 3,000,000— and limited resource to manage the data. We extracted 25,000 random sample entries to simplify the dataset numbers. This sampling was performed using ```.sample()``` methods by ```n=25000``` and ```random_state=42```, where it ensures reproducibility of results. After sampling, index was reset with ```drop=True``` to maintain a clean index in the new subset.
+
+### Selecting Relevant Columns
+Select the desired columns such as ```Id```, ```Title```, ```User_id```, and ```review/score```, and assign them into ```cf_books``` variable. Additionally, any rows containing missing values were dropped using  ```.dropna()``` methods to ensure the dataset is complete and clean for modeling.
+
 ### Dropping Duplicate Records
 Entries containing duplicate values—identified during the initial data inspection—were eliminated to ensure data integrity and prevent redundancy. Although only four duplicate records were found, their removal contributes to maintaining a clean and unbiased dataset.
 
 ### Sorting Title Column
 Create a variable named `cf_books_sort` to store the dataset sorted alphabetically by the Title column.
 
+### TF-IDF For Content Based Filtering
+Items are typically described through a set of features derived from their metadata or textual content—such as genre, keywords, or descriptions. One common approach is to apply a TF-IDF vectorizer to extract important feature representations from each book title, then fit and transform the text into numerical matrices. Since the output of the TF-IDF vectorizer is a sparse matrix, it is often converted into a dense format using .dense() for further processing. This transformation is part of the data preparation stage, where raw item information is cleaned, structured, and vectorized to be suitable for modeling.
+
 ### Encoding And Normalizing Data For Collaborative Filtering
 To prepare the dataset for collaborative filtering, UserID and Title were encoded into numeric values using a mapping dictionary. This encoding process allows the data to used effectively in an embedding layer in model architecture, that will learn latent representation of UserID and title. Review scores were normalized to a 0-1 scale to match the expected output range of sigmoid function that is used during model training. Finally, dataset was randomly shuffled and divided into training set (80%) and validation set (20%), to ensure a balance and unbiased model evaluation and to reduce overfitting risks.
 
 ## Modeling
 ### Content Based Filtering
-In content-based filtering, modeling refers to the process of constructing abstract representations of items and users based on their intrinsic characteristics. Items are typically described through a set of features derived from their metadata or textual content—such as genre, keywords, or descriptions—which are often transformed into numerical vectors using techniques like TF-IDF (Term Frequency–Inverse Document Frequency). Users, on the other hand, are modeled by aggregating the attributes of items they have previously interacted with, thereby forming a personalized preference profile. This dual representation enables the system to compute similarity scores—commonly through cosine similarity—between a user profile and the feature vectors of unseen items. The modeling phase is essential for capturing latent patterns in content and user preferences, ultimately allowing the recommender system to suggest items that align closely with an individual’s historical interests. This approach emphasizes the relevance of item features over user interactions, making it particularly effective in scenarios with sparse collaborative data. The content-based filtering approach has the advantage of being resilient to the cold-start problem for new users and is effective in domains with rich metadata. However, it has limitations in capturing collective preferences or general trends among users.
+In content-based filtering, modeling refers to the process of constructing abstract representations of items and users based on their intrinsic characteristics. Users are modeled by aggregating the attributes of items they have previously interacted with, thereby forming a personalized preference profile. This dual representation (user profile and item feature vectors) enables the system to compute similarity scores—commonly through cosine similarity—between a user profile and the feature vectors of unseen items. The modeling phase is essential for capturing latent patterns in content and user preferences, ultimately allowing the recommender system to suggest items that align closely with an individual’s historical interests. This approach emphasizes the relevance of item features over user interactions, making it particularly effective in scenarios with sparse collaborative data. The content-based filtering approach has the advantage of being resilient to the cold-start problem for new users and is effective in domains with rich metadata. However, it has limitations in capturing collective preferences or general trends among users.
 
-### Collaborative Filtering
-The collaborative filtering model employed in this recommendation system is implemented using a neural network architecture grounded in latent factor modeling via embedding layers. The model, named RecommenderNet, is designed to learn implicit patterns in user-item interactions by mapping both users and items (book titles) into dense vector spaces of fixed dimensionality (in this case, 50). Each user and item is assigned an embedding vector that captures latent features representing preferences and characteristics which are not explicitly observable in the raw data. Additionally, user-specific and item-specific bias terms are incorporated to account for individual tendencies in rating behavior. 
+Here is the result of Collaborative Filtering:
 
-The core of the model computes the dot product between the user and item embeddings to estimate the degree of affinity between them. This result is augmented by the respective bias terms and passed through a sigmoid activation function to constrain the predicted score to a normalized range between 0 and 1. The model is trained using the binary cross-entropy loss function, optimized via the Adam algorithm, and evaluated using Root Mean Squared Error (RMSE) as a performance metric. To enhance generalization and prevent overfitting, early stopping is employed based on the validation RMSE, halting training once performance ceases to improve over a set number of epochs. This embedding-based collaborative filtering approach effectively models personalized recommendations without requiring any content-based features, making it particularly well-suited for large-scale systems where explicit metadata may be sparse or unavailable.
-
-The collaborative filtering excels at detecting implicit patterns and providing personalized recommendations without requiring content features. However, this model heavily relies on the quantity and quality of historical interactions; in cases of highly sparse data or new users/items, its performance can degrade significantly.
-
-## Result
-### Content Based Filtering
 Books title: Buddha Mom: The Journey Through Mindful Mothering
 
 Most similar book:
@@ -118,6 +121,14 @@ Most similar book:
 This result returns the top 5 books that are most similar to "Buddha Mom: The Journey Through Mindful Mothering" in terms of their TF-IDF feature representation using Cosine Similarity.
 
 ### Collaborative Filtering
+The collaborative filtering model employed in this recommendation system is implemented using a neural network architecture grounded in latent factor modeling via embedding layers. The model, named RecommenderNet, is designed to learn implicit patterns in user-item interactions by mapping both users and items (book titles) into dense vector spaces of fixed dimensionality (in this case, 50). Each user and item is assigned an embedding vector that captures latent features representing preferences and characteristics which are not explicitly observable in the raw data. Additionally, user-specific and item-specific bias terms are incorporated to account for individual tendencies in rating behavior. 
+
+The core of the model computes the dot product between the user and item embeddings to estimate the degree of affinity between them. This result is augmented by the respective bias terms and passed through a sigmoid activation function to constrain the predicted score to a normalized range between 0 and 1. The model is trained using the binary cross-entropy loss function, optimized via the Adam algorithm, and evaluated using Root Mean Squared Error (RMSE) as a performance metric. To enhance generalization and prevent overfitting, early stopping is employed based on the validation RMSE, halting training once performance ceases to improve over a set number of epochs. This embedding-based collaborative filtering approach effectively models personalized recommendations without requiring any content-based features, making it particularly well-suited for large-scale systems where explicit metadata may be sparse or unavailable.
+
+The collaborative filtering excels at detecting implicit patterns and providing personalized recommendations without requiring content features. However, this model heavily relies on the quantity and quality of historical interactions; in cases of highly sparse data or new users/items, its performance can degrade significantly.
+
+Here is the result of Collaborative Filtering:
+
 User A1ICSOSXOBZENW Has Rated the Following Books:
 | Title             | Review/Score |
 |-------------------|--------------|
